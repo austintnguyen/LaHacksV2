@@ -9,7 +9,7 @@ public class Main {
         s.nextLine();
         int[] days = u.getDays(s);
 
-        //System.out.println(arg);
+        //System.out.println();
         s.close();
     }
 }

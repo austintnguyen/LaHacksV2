@@ -23,30 +23,15 @@ public class Util {
 
     public int[] getDays(Scanner s) {
         s.useDelimiter("\n");
-        System.out.println("Enter the number of classes you have from Mon to Fri:");
-        System.out.println("(For example, 3 1 5 2 3)");
-        String days = "";
-        boolean validInput = false;
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+        int numClasses[] = new int[5];
 
-        while (days.length() != 9 && !validInput) {
-            days = s.nextLine();
-            if (days.length() != 9) {
-                System.out.println("Invalid input");
-            }
-            else {
-                for (int i = 0; i < days.length(); i++) {
-
-                }
-            }
+        for (int i = 0; i < days.length; i++) {
+            System.out.println("Number of classes on "+days[i]+": ");
+            numClasses[i] = s.nextInt();
         }
-        
-        System.out.println("days "+days);
 
-        for (int i = 0; i < days.length(); i++) {
-            System.out.println(i);
-        }
-        // return days
-        return null;
+        return numClasses;
     }
 
 }
