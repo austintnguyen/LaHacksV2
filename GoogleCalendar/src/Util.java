@@ -9,11 +9,9 @@ public class Util {
         System.out.println();
     }
 
-    public void getRawSchedule() {
-        Scanner s = new Scanner(System.in);
+    public void getRawSchedule(Scanner s) {
         s.useDelimiter("STOP"); // use end-of-input as delimiter
         String schedule = s.next();
-        //System.out.println("Input string:\n" + schedule);
         String fn = "input.txt";
 
         try (FileWriter w = new FileWriter(fn)) {
@@ -21,8 +19,34 @@ public class Util {
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
+    }
 
-        s.close();
+    public int[] getDays(Scanner s) {
+        s.useDelimiter("\n");
+        System.out.println("Enter the number of classes you have from Mon to Fri:");
+        System.out.println("(For example, 3 1 5 2 3)");
+        String days = "";
+        boolean validInput = false;
+
+        while (days.length() != 9 && !validInput) {
+            days = s.nextLine();
+            if (days.length() != 9) {
+                System.out.println("Invalid input");
+            }
+            else {
+                for (int i = 0; i < days.length(); i++) {
+
+                }
+            }
+        }
+        
+        System.out.println("days "+days);
+
+        for (int i = 0; i < days.length(); i++) {
+            System.out.println(i);
+        }
+        // return days
+        return null;
     }
 
 }
