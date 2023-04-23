@@ -1,6 +1,5 @@
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -68,7 +67,7 @@ public class StringParse{
 
         
 
-        militaryTime = String.format("%02d", newHour) + ":" + secondHalf;
+        militaryTime = String.format("%02d", newHour) + " " + secondHalf;
 
         return militaryTime;
 
@@ -122,14 +121,9 @@ public class StringParse{
     }
 
     public static void main(String[] args) throws ValidationException, ParseException, IOException{
-
-        String s = "9:00pm - 9:50pm\nCSE 105 - Lecture\nWLH 2001\n" +
-        "11:00am - 3:05pm\nECON 150 - Lecture\nPrice Center";
         
         StringParse sP = new StringParse("input.txt",true);
         sP.parseData();
-
-        InputOutput io = new InputOutput();
 
         int [] numClasses = {1, 2, 1, 2, 3};
 
