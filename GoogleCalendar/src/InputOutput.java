@@ -42,13 +42,20 @@ public class InputOutput {
         return input;
     }
 
-    public String run(JTextArea scheduleI, JTextArea startDayI, 
-    JTextArea startMonthI, JTextArea startYearI, ArrayList<JComboBox<Integer>> daysCombo 
-    ) {
-        String schedule = scheduleI.getText();
-        String startD = startDayI.getText();
-        String startM = startMonthI.getText();
-        String startY = startYearI.getText();
+    /**
+     * create a file for schedule
+     * stores start date as int
+     * stores num of classes as int[]
+     * 
+     * @param scheduleI the body of text the represents a schedule
+     * @param startDateI the first monday of the week they start classes
+     * @param daysCombo the combo boxes
+     * @return
+     */
+    public void storeData(JTextArea scheduleI, JTextArea startDateI, 
+    ArrayList<JComboBox<Integer>> daysCombo, String storeDate, int[] storeNumClasses) {
+        String startDate = startDateI.getText();
+        System.out.println("startDate is: " + startDate);
 
         // Integer mon = (Integer) monI.getSelectedItem();
         // Integer tue = (Integer) tueI.getSelectedItem();
@@ -56,10 +63,12 @@ public class InputOutput {
         // Integer thu = (Integer) thuI.getSelectedItem();
         // Integer fri = (Integer) friI.getSelectedItem();
 
+        for (int i = 0; i < 5; i++) {
+            System.out.println("numClass is "+daysCombo.get(i).getSelectedItem());
+        }
+
 
         //put schedule into file
 
-
-        return null;
     }
 }
