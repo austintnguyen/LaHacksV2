@@ -68,7 +68,7 @@ public class IcsFileCreator {
 
     
     private static void addToCalendar(Calendar calendar, Course course, TimeZone timezone, FileOutputStream fout, CalendarOutputter outputter) throws ParseException, ValidationException, IOException{
-        String rruleValue = "FREQ=WEEKLY;COUNT=10;BYDAY=TU"; 
+        String rruleValue = "FREQ=WEEKLY;COUNT=10"; 
         DateTime startDateTime = new DateTime("20230422T110000",timezone);
         DateTime endDateTime = new DateTime("20230422T115000", timezone);
         VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
