@@ -5,15 +5,19 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.ArrayList;
 
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.DateList;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.TimeZone;
 import net.fortuna.ical4j.model.TimeZoneRegistry;
 import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.parameter.Value;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Method;
 import net.fortuna.ical4j.model.property.ProdId;
@@ -62,26 +66,66 @@ public class IcsFileCreator {
         */
         FileOutputStream fout = new FileOutputStream("schedule.ics");
         CalendarOutputter outputter = new CalendarOutputter();
-        Course course = new Course("CSE 100", "33", "22", "Center Hall", "Le");
-        addToCalendar(calendar, course, timezone, fout, outputter);
+        addToCalendar(calendar, timezone, fout, outputter);
     }
 
     
-    private static void addToCalendar(Calendar calendar, Course course, TimeZone timezone, FileOutputStream fout, CalendarOutputter outputter) throws ParseException, ValidationException, IOException{
+    private static void addToCalendar(Calendar calendar, TimeZone timezone, FileOutputStream fout, CalendarOutputter outputter) throws ParseException, ValidationException, IOException{
         String rruleValue = "FREQ=WEEKLY;COUNT=10"; 
-        DateTime startDateTime = new DateTime("20230422T110000",timezone);
-        DateTime endDateTime = new DateTime("20230422T115000", timezone);
-        VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
 
-        event.getProperties().add(new net.fortuna.ical4j.model.property.Description("Discuss project timeline."));
-        event.getProperties().add(new net.fortuna.ical4j.model.property.Location("123 Main St."));
         Recur recur = new Recur(rruleValue);
-        RRule rrule = new RRule(recur);
-        event.getProperties().add(rrule); 
+
+        StringParse sP = new StringParse("input.txt", true);
+        sP.parseData();
+
+        int[] arr = {3,1,5,1,5};
+        int n = 0;
+        int startDay = 24;
+        while(n < sP.getCourseList().size()){
+        for(int j = 0; j < 5; j++){
+
+        
+        DateList dateList = recur.getDates(new DateTime("202304"+(startDay+j)+"T"+sP.getCourseList().get(n).getstartTime()), new DateTime("20250425T"+sP.getCourseList().get(n).getstartTime()), Value.DATE_TIME);
         
         // Add the event to the calendar
-        calendar.getComponents().add(event);
+
+        DateList datesToRemove = new DateList();
+        // datesToRemove.add(new DateTime("20230401T100000"));
+        // datesToRemove.add(new DateTime("20230522T100000"));
+        
+        if(arr[j]==0){
+            continue;
+        }
+
+        System.out.println(n>=sP.getCourseList().size());
+
+        System.out.println(n + "HERE!!!");
+        System.out.println(sP.getCourseList().size() + "HERE!!!");
+
+        for (Object date : dateList) {
+            if (!datesToRemove.contains(date)) {
+
+                DateTime startDateTime = new DateTime(date.toString(),timezone);
+                DateTime endDateTime = new DateTime(date.toString(), timezone);
+
+
+                VEvent event = new VEvent(startDateTime, endDateTime, sP.getCourseList().get(n).getName());
+
+                event.getProperties().add(new net.fortuna.ical4j.model.property.Description("Discuss project timeline."));
+                event.getProperties().add(new net.fortuna.ical4j.model.property.Location("123 Main St."));
+
+                // Create a new event with the date and add it to the calendar
+                calendar.getComponents().add(event);
+                
+            }
+        }
+        n++;
+        arr[j]--;
+    }
+}
+
         outputter.output(calendar, fout);
+        System.out.println(calendar.getComponents().size());
 
     }
 

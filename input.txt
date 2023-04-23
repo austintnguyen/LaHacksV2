@@ -1,27 +1,45 @@
-11:00am - 11:50am
-CSE 100R - Lecture
-RCLAS R06
+9:00am - 9:50am
+CSE 105 - Lecture
+WLH 2001
 11:00am - 12:20pm
 CSE 101 - Lecture
 JEANN AUD
-11:00am - 11:50am
-CSE 100R - Lecture
-RCLAS R06
+9:00am - 9:50am
+CSE 105 - Lecture
+WLH 2001
 11:00am - 12:20pm
 CSE 101 - Lecture
 JEANN AUD
+9:00am - 9:50am
+CSE 105 - Lecture
+WLH 2001
 11:00am - 11:50am
 CSE 100R - Lecture
 RCLAS R06
-6:30pm - 7:50pm
-VIS 84 - Lecture
-SOLIS 107
-6:30pm - 7:50pm
-VIS 84 - Lecture
-SOLIS 107
+11:00am - 11:50am
+CSE 100R - Lecture
+RCLAS R06
+11:00am - 11:50am
+CSE 100R - Lecture
+RCLAS R06
+12:00pm - 12:50pm
+ECON 120B - Lecture
+GH 242
+12:00pm - 12:50pm
+ECON 120B - Lecture
+GH 242
 12:00pm - 12:50pm
 CSE 101 - Discussion
 MOS 0114
+6:00pm - 6:50pm
+CSE 105 - Discussion
+YORK 2722
+12:00pm - 12:50pm
+ECON 120B - Lecture
+GH 242
+8:00pm - 8:50pm
+ECON 120B - Discussion
+CSB 002
 5:00pm - 5:50pm
 CSE 100R - Discussion
 RCLAS R01
