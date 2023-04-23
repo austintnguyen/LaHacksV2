@@ -69,42 +69,39 @@ public class AutoScheduler extends JFrame {
     }
 
     private void createBody(JPanel p) {
-        //create panel
+        // create panel
         JPanel bodyPanel = new JPanel();
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
-        //create label
+        // create label
         JLabel label = new JLabel("Input Schedule");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         bodyPanel.add(label);
 
-        //create schedule text box
+        // create schedule text box
         scheduleI = new JTextArea(80, 40);
         scheduleI.setLineWrap(true);
         scheduleI.setWrapStyleWord(true);
         bodyPanel.add(new JScrollPane(scheduleI));
 
-        //create button
+        // create button
         submitButton = new JButton("Submit");
         submitButton.setHorizontalAlignment(SwingConstants.CENTER);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                
-
                 if (checkConditions()) {
                     InputOutput io = new InputOutput();
-                    //store startDate
+                    // store startDate
                     io.storeStartDate(startDateI.getText());
 
-
-                    //store numClasses
+                    // store numClasses
                     io.storeNumClasses(daysCombo);
 
-                    //create file
+                    // create file
                     io.createFile(scheduleI.getText());
 
-                    //parse data
+                    // parse data
                     StringParse sp = new StringParse("input.txt", true);
 
                     sp.parseData();
@@ -121,7 +118,7 @@ public class AutoScheduler extends JFrame {
                     } catch (FileNotFoundException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
-                
+
                     }
                 }
             }

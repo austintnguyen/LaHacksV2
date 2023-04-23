@@ -9,8 +9,6 @@ public class InputOutput {
     int[] numClasses;
     int[] startDate;
 
-    //int[] startDate = {2023,4,3};
-
     public InputOutput(){
         numClasses = new int[5];
         startDate = new int[3];
@@ -33,24 +31,7 @@ public class InputOutput {
         }
     }
 
-    // public int[] getDays(Scanner s) {
-    //     String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-    //     int numClasses[] = new int[5];
-
-    //     for (int i = 0; i < days.length; i++) {
-    //         System.out.println("Number of classes on "+days[i]+": ");
-    //         numClasses[i] = s.nextInt();
-    //     }
-
-    //     return numClasses;
-    // }
-
-    // public String getDate(Scanner s) {
-    //     System.out.println("Please input the date of the first day of the quarter in YYYYMMDD format: ");
-    //     String input = s.next();
-    //     return input;
-    // }
-
+   
     public void storeNumClasses(ArrayList<JComboBox<Integer>> daysCombo) {
         numClasses = new int[5];
         for (int i = 0; i < 5; i++) {
