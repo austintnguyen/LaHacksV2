@@ -10,8 +10,6 @@ public class Main {
         u.getRawSchedule(s);
         s.nextLine();
         s.useDelimiter("\n");
-        int[] days = u.getDays(s);
-        String date = u.getDate(s);
 
         //System.out.println();
         s.close();
