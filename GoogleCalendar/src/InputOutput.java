@@ -60,29 +60,17 @@ public class InputOutput {
         return startDate;
     }
 
-    /**
-     * create a file for schedule
-     * stores start date as int
-     * stores num of classes as int[]
-     * 
-     * @param scheduleI the body of text the represents a schedule
-     * @param startDateI the first monday of the week they start classes
-     * @param daysCombo the combo boxes
-     * @return
-     */
-    public void storeData(JTextArea scheduleI, JTextArea startDateI, 
-    ArrayList<JComboBox<Integer>> daysCombo, String storeDate, int[] storeNumClasses) {
-        String startDate = startDateI.getText();
-        System.out.println("startDate is: " + startDate);
+    public void createFile(String text) {
+        String fn = "input.txt";
 
-        // Integer mon = (Integer) monI.getSelectedItem();
-        // Integer tue = (Integer) tueI.getSelectedItem();
-        // Integer wed = (Integer) wedI.getSelectedItem();
-        // Integer thu = (Integer) thuI.getSelectedItem();
-        // Integer fri = (Integer) friI.getSelectedItem();
-
-
-        //put schedule into file
-
+        try {
+            FileWriter fileWriter = new FileWriter(fn);
+            fileWriter.write(text);
+            fileWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
     }
 }

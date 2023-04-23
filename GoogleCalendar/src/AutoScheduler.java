@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GUI extends JFrame {
+public class AutoScheduler extends JFrame {
     private JTextArea scheduleI, startDateI, o;
     //private JPanel startDatePanel, classPanel, bodyPanel, outputPanel;
     private ArrayList<JComboBox<Integer>> daysCombo;
@@ -121,7 +121,7 @@ public class GUI extends JFrame {
         p.add(bodyPanel);
     }
 
-    public GUI() {
+    public AutoScheduler() {
         super("AutoScheduler");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -138,8 +138,8 @@ public class GUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        GUI GUI = new GUI();
-        GUI.pack();
-        GUI.setVisible(true);
+        AutoScheduler AutoScheduler = new AutoScheduler();
+        AutoScheduler.pack();
+        AutoScheduler.setVisible(true);
       }
 }
