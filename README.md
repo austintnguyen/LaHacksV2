@@ -13,4 +13,4 @@ This application helps UCSD students organize all the courses they are taking in
 * Input the number of classes you are taking on Monday, Tuesday, Wednesday, Thursday, and Friday.
 * Finally, copy the contents of the class schedule that is displayed on your TritionLink and paste into the large text box.
 * Click Submit and it will prompt you to save the file on your computer.
-* Import to Google Calendar and see all your classes loaded up into your calendar, spanning 10-week long quarter.
+* Import to Google Calendar and see all your classes loaded up into your calendar, spanning a 10-week long quarter.
