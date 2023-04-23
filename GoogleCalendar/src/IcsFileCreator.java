@@ -162,7 +162,7 @@ public class IcsFileCreator {
 
     DateTime endDateTime = new DateTime(
             day.atTime(LocalTime.of(course.getendTimeFirstHalf(),course.getendTimeSecondHalf())).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-        VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
+        VEvent event = new VEvent(startDateTime, endDateTime, course.getName()+" - "+ course.getType());
 
         // event.getProperties().add(new
         // net.fortuna.ical4j.model.property.Description("Discuss project timeline."));
