@@ -108,11 +108,17 @@ public class AutoScheduler extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 InputOutput io = new InputOutput();
+                //store startDate
+                io.storeStartDate(startDateI.getText());
+
+                //store numClasses
+                io.storeNumClasses(daysCombo);
+
                 //create file
+                io.createFile(scheduleI.getText());
+
                 //parse data
                 //getNumDays
-                //io.storeData(scheduleI, startDateI, daysCombo, startDate, numClasses);
-                //call methods?
             }
         });
         bodyPanel.add(submitButton);
@@ -137,9 +143,9 @@ public class AutoScheduler extends JFrame {
         
     }
 
-    public static void main(String[] args) {
-        AutoScheduler AutoScheduler = new AutoScheduler();
-        AutoScheduler.pack();
-        AutoScheduler.setVisible(true);
-      }
+    // public static void main(String[] args) {
+    //     AutoScheduler AutoScheduler = new AutoScheduler();
+    //     AutoScheduler.pack();
+    //     AutoScheduler.setVisible(true);
+    //   }
 }
