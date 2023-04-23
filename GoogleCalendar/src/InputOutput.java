@@ -54,6 +54,27 @@ public class InputOutput {
         return numClasses;
     }
 
+<<<<<<< Updated upstream
+=======
+    public int [] getStartDate(){
+        return startDate;
+    }
+
+    public void createFile(String text) {
+        String fn = "input.txt";
+
+        try {
+            FileWriter fileWriter = new FileWriter(fn);
+            fileWriter.write(text);
+            fileWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+>>>>>>> Stashed changes
     /**
      * create a file for schedule
      * stores start date as int
@@ -64,19 +85,19 @@ public class InputOutput {
      * @param daysCombo the combo boxes
      * @return
      */
-    public void storeData(JTextArea scheduleI, JTextArea startDateI, 
-    ArrayList<JComboBox<Integer>> daysCombo, String storeDate, int[] storeNumClasses) {
-        String startDate = startDateI.getText();
-        System.out.println("startDate is: " + startDate);
+    // public void storeData(JTextArea scheduleI, JTextArea startDateI, 
+    // ArrayList<JComboBox<Integer>> daysCombo, String storeDate, int[] storeNumClasses) {
+    //     String startDate = startDateI.getText();
+    //     System.out.println("startDate is: " + startDate);
 
-        // Integer mon = (Integer) monI.getSelectedItem();
-        // Integer tue = (Integer) tueI.getSelectedItem();
-        // Integer wed = (Integer) wedI.getSelectedItem();
-        // Integer thu = (Integer) thuI.getSelectedItem();
-        // Integer fri = (Integer) friI.getSelectedItem();
+    //     // Integer mon = (Integer) monI.getSelectedItem();
+    //     // Integer tue = (Integer) tueI.getSelectedItem();
+    //     // Integer wed = (Integer) wedI.getSelectedItem();
+    //     // Integer thu = (Integer) thuI.getSelectedItem();
+    //     // Integer fri = (Integer) friI.getSelectedItem();
 
 
-        //put schedule into file
+    //     //put schedule into file
 
-    }
+    // }
 }

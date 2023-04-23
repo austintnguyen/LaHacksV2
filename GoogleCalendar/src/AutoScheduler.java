@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class GUI extends JFrame {
+public class AutoScheduler extends JFrame {
     private JTextArea scheduleI, startDateI, o;
     //private JPanel startDatePanel, classPanel, bodyPanel, outputPanel;
     private ArrayList<JComboBox<Integer>> daysCombo;
@@ -88,7 +88,15 @@ public class GUI extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 InputOutput io = new InputOutput();
+<<<<<<< Updated upstream:GoogleCalendar/src/GUI.java
                 io.storeData(scheduleI, startDateI, daysCombo, startDate, numClasses);
+=======
+                //create file
+                io.createFile(scheduleI.getText());
+                //parse data
+                //getNumDays
+                //io.storeData(scheduleI, startDateI, daysCombo, startDate, numClasses);
+>>>>>>> Stashed changes:GoogleCalendar/src/AutoScheduler.java
                 //call methods?
             }
         });
@@ -96,11 +104,15 @@ public class GUI extends JFrame {
         p.add(bodyPanel);
     }
 
+<<<<<<< Updated upstream:GoogleCalendar/src/GUI.java
     private void createOutput(JPanel p) {
 
     }
 
     public GUI() {
+=======
+    public AutoScheduler() {
+>>>>>>> Stashed changes:GoogleCalendar/src/AutoScheduler.java
         super("AutoScheduler");
         setSize(400, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,7 +146,13 @@ public class GUI extends JFrame {
     }
 
     public static void main(String[] args) {
+<<<<<<< Updated upstream:GoogleCalendar/src/GUI.java
         GUI GUI = new GUI();
         GUI.setVisible(true);
+=======
+        AutoScheduler AutoScheduler = new AutoScheduler();
+        AutoScheduler.pack();
+        AutoScheduler.setVisible(true);
+>>>>>>> Stashed changes:GoogleCalendar/src/AutoScheduler.java
       }
 }
