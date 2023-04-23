@@ -7,8 +7,9 @@ import java.awt.event.*;
 
 public class InputOutput {
     int[] numClasses;
+    int[] startDate;
 
-    int[] startDate = {2023,4,3};
+    //int[] startDate = {2023,4,3};
 
     public void intro() {
         System.out.println("Copy and input your schedule into the terminal "
@@ -45,7 +46,7 @@ public class InputOutput {
     //     return input;
     // }
 
-    public void convertNumClasses(ArrayList<JComboBox<Integer>> daysCombo) {
+    public void storeNumClasses(ArrayList<JComboBox<Integer>> daysCombo) {
         numClasses = new int[5];
         for (int i = 0; i < 5; i++) {
             numClasses[i] = (Integer) daysCombo.get(i).getSelectedItem();
@@ -56,8 +57,18 @@ public class InputOutput {
         return numClasses;
     }
 
-    public int [] getStartDate(){
+    public int[] getStartDate(){
         return startDate;
+    }
+
+    public int[] storeStartDate(String startDateI) {
+        //System.out.println("Start Date: " + startDateI);
+        startDate = new int[3];
+        startDate[0] = Integer.parseInt(startDateI.substring(0, 4));
+        startDate[1] = Integer.parseInt(startDateI.substring(4, 6));
+        startDate[2] = Integer.parseInt(startDateI.substring(6, 8));
+
+        return this.startDate;
     }
 
     public void createFile(String text) {
