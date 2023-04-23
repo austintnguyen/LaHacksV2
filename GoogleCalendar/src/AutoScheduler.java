@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class AutoScheduler extends JFrame {
     private JTextArea scheduleI, startDateI, o;
-    //private JPanel startDatePanel, classPanel, bodyPanel, outputPanel;
     private ArrayList<JComboBox<Integer>> daysCombo;
     private ArrayList<JPanel> classes;
     private JButton submitButton;
@@ -19,69 +18,47 @@ public class AutoScheduler extends JFrame {
     public int[] numClasses;
     private int padding = 10;
     private InputOutput io;
-    
 
     private void createDate(JPanel p) {
         JPanel datePanel = new JPanel();
-        //datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.Y_AXIS)); //might remove this
         datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.PAGE_AXIS));
         datePanel.add(Box.createVerticalGlue());
 
-        //create label
+        // create label
         JLabel dateLabel = new JLabel("Enter the date on which instruction began in YYYYMMDD format: ");
         datePanel.add(dateLabel);
-        //datePanel.add(Box.createVerticalGlue());
-        //dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        //create start date text box
+        // create start date text box
         startDateI = new JTextArea(5, 10);
         startDateI.setLineWrap(true);
         startDateI.setWrapStyleWord(true);
         datePanel.add(startDateI);
-        //datePanel.add(Box.createVerticalGlue());
-
-        //datePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         datePanel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         p.add(datePanel);
     }
 
     private void createNumClasses(JPanel p) {
-        //create class panel for storing the boxes and labels horizontally
+        // create class panel for storing the boxes and labels horizontally
         JPanel classPanel = new JPanel();
         classPanel.setLayout(new BoxLayout(classPanel, BoxLayout.X_AXIS));
 
-        //add panels of combo boxes and labels
+        // add panels of combo boxes and labels
         daysCombo = new ArrayList<JComboBox<Integer>>();
-        String days[] = {"Mon", "Tue", "Wed", "Thu", "Fri"};
+        String days[] = { "Mon", "Tue", "Wed", "Thu", "Fri" };
 
         ArrayList<JPanel> classes = new ArrayList<>();
-
-            //initialized combo boxes first
-        // for (int i = 0; i < daysCombo.size(); i++) {
-        //     daysCombo.add(new JComboBox<Integer>(new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}));
-        //     daysCombo.get(i).setPreferredSize(new Dimension(10, 10));
-        //     //classPanel.add(daysCombo.get(i));
-        // }
 
         for (int i = 0; i < 5; i++) {
             JPanel panel = new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
             panel.add(new JLabel(days[i]));
-            daysCombo.add(new JComboBox<Integer>(new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}));
+            daysCombo.add(new JComboBox<Integer>(new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }));
             daysCombo.get(i).setPreferredSize(new Dimension(10, 10));
-            //Component glue = Box.createVerticalGlue();
-            //panel.add(glue);
-            //panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
             panel.add(daysCombo.get(i));
             classes.add(panel);
         }
-
-        // for (int i = 0; i < daysCombo.size(); i++) {
-        //     daysCombo.add(new JComboBox<Integer>(new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}));
-        //     daysCombo.get(i).setPreferredSize(new Dimension(10, 10));
-        //     classPanel.add(daysCombo.get(i));
-        // }
 
         for (int i = 0; i < 5; i++) {
             classPanel.add(classes.get(i));
@@ -90,7 +67,7 @@ public class AutoScheduler extends JFrame {
         classPanel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         p.add(classPanel);
     }
-    
+
     private void createBody(JPanel p) {
         //create panel
         JPanel bodyPanel = new JPanel();
@@ -100,56 +77,53 @@ public class AutoScheduler extends JFrame {
         JLabel label = new JLabel("Input Schedule");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         bodyPanel.add(label);
-        //bodyPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         //create schedule text box
         scheduleI = new JTextArea(80, 40);
         scheduleI.setLineWrap(true);
         scheduleI.setWrapStyleWord(true);
-        //bodyPanel.setMaximumSize(bodyPanel.getPreferredSize());
         bodyPanel.add(new JScrollPane(scheduleI));
-        //bodyPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         //create button
         submitButton = new JButton("Submit");
         submitButton.setHorizontalAlignment(SwingConstants.CENTER);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 
-                //store startDate
-                io.storeStartDate(startDateI.getText());
 
-                //store numClasses
-                io.storeNumClasses(daysCombo);
+                if (checkConditions()) {
+                    InputOutput io = new InputOutput();
+                    //store startDate
+                    io.storeStartDate(startDateI.getText());
 
-                //create file
-                io.createFile(scheduleI.getText());
 
-                //parse data
+                    //store numClasses
+                    io.storeNumClasses(daysCombo);
 
-                StringParse sp = new StringParse("input.txt", true);
+                    //create file
+                    io.createFile(scheduleI.getText());
 
-                sp.parseData();
+                    //parse data
+                    StringParse sp = new StringParse("input.txt", true);
 
-                IcsFileCreator file;
-                try {
-                    file = new IcsFileCreator(sp.getCourseList(), io);
+                    sp.parseData();
+
+                    IcsFileCreator file;
                     try {
-                        file.addAllCoursesToCalendar();
-                    } catch (ValidationException | ParseException | IOException e1) {
+                        file = new IcsFileCreator(sp.getCourseList(), io);
+                        try {
+                            file.addAllCoursesToCalendar();
+                        } catch (ValidationException | ParseException | IOException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                    } catch (FileNotFoundException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
+                
                     }
-                } catch (FileNotFoundException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
                 }
-        
-                
-        
-                
-                
-                //getNumDays
             }
         });
         bodyPanel.add(submitButton);
@@ -158,7 +132,7 @@ public class AutoScheduler extends JFrame {
         p.add(bodyPanel);
     }
 
-    public InputOutput getIO(){
+    public InputOutput getIO() {
         return io;
     }
 
@@ -168,7 +142,6 @@ public class AutoScheduler extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         io = new InputOutput();
-        
 
         JPanel superPanel = new JPanel();
         superPanel.setLayout(new BoxLayout(superPanel, BoxLayout.Y_AXIS));
@@ -178,12 +151,18 @@ public class AutoScheduler extends JFrame {
         createBody(superPanel);
 
         add(superPanel);
-        
+
     }
 
-    // public static void main(String[] args) {
-    //     AutoScheduler AutoScheduler = new AutoScheduler();
-    //     AutoScheduler.pack();
-    //     AutoScheduler.setVisible(true);
-    //   }
+    private boolean checkConditions() {
+        if (startDateI.getText().length() != 8) {
+            return false;
+        }
+
+        if (scheduleI.getText().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
 }
