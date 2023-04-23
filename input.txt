@@ -1,6 +1,6 @@
-11:00am - 12:10pm
-CSE 101 - Lecture
-JEANN AUD
+11:00am - 11:50am
+CSE 100R - Lecture
+RCLAS R06
 11:00am - 12:20pm
 CSE 101 - Lecture
 JEANN AUD

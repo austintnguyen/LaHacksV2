@@ -153,7 +153,6 @@ public class IcsFileCreator {
         //DateTime endDateTime = new DateTime(year + "0422T115000", timezone);
         String [] split = course.getstartTime().split(" ");
 
-        System.out.println(split[0]+" "+ split[1]);
         DateTime startDateTime = new DateTime(
             day.atTime(LocalTime.of(Integer.parseInt(split[0]),Integer.parseInt(split[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
