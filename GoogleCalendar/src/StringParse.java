@@ -1,9 +1,12 @@
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.text.ParseException;
 import java.util.ArrayList;
+
+import net.fortuna.ical4j.validate.ValidationException;
 
 public class StringParse{
 
@@ -115,7 +118,7 @@ public class StringParse{
         return courseList;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws ValidationException, ParseException, IOException{
 
         String s = "9:00pm - 9:50pm\nCSE 105 - Lecture\nWLH 2001\n" +
         "11:00am - 3:05pm\nECON 150 - Lecture\nPrice Center";
@@ -123,7 +126,14 @@ public class StringParse{
         StringParse sP = new StringParse("input.txt",true);
         sP.parseData();
 
+        InputOutput io = new InputOutput();
 
+        int [] numClasses = {1, 2, 1, 2, 3};
+
+        IcsFileCreator file = new IcsFileCreator(sP.getCourseList(), numClasses);
+
+        file.addAllCoursesToCalendar();
+        
         System.out.println("Size: " +sP.courseList.size());
         for(int i = 0;i < sP.courseList.size(); i++){
 

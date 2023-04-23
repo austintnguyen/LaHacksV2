@@ -45,9 +45,11 @@ public class IcsFileCreator {
 
     InputOutput u;
 
+    int [] numClasses;
+
     
 
-    public IcsFileCreator(ArrayList<Course> courseList, InputOutput u) throws FileNotFoundException {
+    public IcsFileCreator(ArrayList<Course> courseList, int [] numClasses) throws FileNotFoundException {
         registry = TimeZoneRegistryFactory.getInstance().createRegistry();
         timezone = registry.getTimeZone("America/Los_Angeles");
         calendar = new Calendar();
@@ -58,7 +60,7 @@ public class IcsFileCreator {
         fout = new FileOutputStream("schedule.ics");
         outputter = new CalendarOutputter();
         this.courseList = courseList;
-        this.u =u;// change when austin finishes
+        this.numClasses = numClasses;// change when austin finishes
 
     }
 
@@ -86,14 +88,14 @@ public class IcsFileCreator {
 
     public void addAllCoursesToCalendar() throws ValidationException, ParseException, IOException {
         int n = 0;
-        int[] days = u.getNumClasses(); // change this when austin finishes
+        int[] days = numClasses; // change this when austin finishes
         // Get the start date from which to calculate the first Tuesday
-        LocalDate startDate = LocalDate.of(2023, 5, 1);
+        LocalDate startDate = LocalDate.of(2023, 4, 3);
 
         
 
         while (n < courseList.size())
-            for (int i = 0; i < days.length; i++) {
+            for (int i = 0; i < numClasses.length; i++) {
                 if (days[i] > 0) {
                     
                     if(i==0){

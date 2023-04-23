@@ -88,7 +88,10 @@ public class GUI extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 InputOutput io = new InputOutput();
-                io.storeData(scheduleI, startDateI, daysCombo, startDate, numClasses);
+                //create file
+                //parse data
+                //getNumDays
+                //io.storeData(scheduleI, startDateI, daysCombo, startDate, numClasses);
                 //call methods?
             }
         });
