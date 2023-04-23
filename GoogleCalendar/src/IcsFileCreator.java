@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.TimeZone;
 import net.fortuna.ical4j.model.TimeZoneRegistry;
 import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
@@ -16,6 +17,7 @@ import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.CalScale;
 import net.fortuna.ical4j.model.property.Method;
 import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.RRule;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.validate.ValidationException;
 
@@ -60,18 +62,22 @@ public class IcsFileCreator {
         */
         FileOutputStream fout = new FileOutputStream("schedule.ics");
         CalendarOutputter outputter = new CalendarOutputter();
-        Course course = new Course("CSE 100", "33", "22", "Center Hall");
+        Course course = new Course("CSE 100", "33", "22", "Center Hall", "Le");
         addToCalendar(calendar, course, timezone, fout, outputter);
     }
 
     
     private static void addToCalendar(Calendar calendar, Course course, TimeZone timezone, FileOutputStream fout, CalendarOutputter outputter) throws ParseException, ValidationException, IOException{
-        DateTime startDateTime = new DateTime("20230422T112100",timezone);
-        DateTime endDateTime = new DateTime("20230422T235000", timezone);
+        String rruleValue = "FREQ=WEEKLY;COUNT=10;BYDAY=TU"; 
+        DateTime startDateTime = new DateTime("20230422T110000",timezone);
+        DateTime endDateTime = new DateTime("20230422T115000", timezone);
         VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
 
         event.getProperties().add(new net.fortuna.ical4j.model.property.Description("Discuss project timeline."));
         event.getProperties().add(new net.fortuna.ical4j.model.property.Location("123 Main St."));
+        Recur recur = new Recur(rruleValue);
+        RRule rrule = new RRule(recur);
+        event.getProperties().add(rrule); 
         
         // Add the event to the calendar
         calendar.getComponents().add(event);
