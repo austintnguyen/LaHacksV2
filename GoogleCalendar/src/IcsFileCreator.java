@@ -108,6 +108,8 @@ public class IcsFileCreator {
 
         outputter.output(calendar, fout);
         fout.close();
+
+        ICSFileDownloader dl = new ICSFileDownloader();
         System.exit(0);
 
     }
