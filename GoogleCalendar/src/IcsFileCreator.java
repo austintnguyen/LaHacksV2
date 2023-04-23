@@ -141,21 +141,21 @@ public class IcsFileCreator {
     private void addCourse(Calendar calendar, Course course, TimeZone timezone, FileOutputStream fout,
             CalendarOutputter outputter, LocalDate day) throws ParseException, ValidationException, IOException {
 
-        String year = Integer.toString(Year.now().getValue());
         String rruleValue = "FREQ=WEEKLY;COUNT=10";
         //DateTime startDateTime = new DateTime(year + "0422T110000", timezone);
         //DateTime endDateTime = new DateTime(year + "0422T115000", timezone);
-        String [] split = course.getstartTime().split(":");
+        String [] split = course.getstartTime().split(" ");
 
         System.out.println(split[0]+" "+ split[1]);
         DateTime startDateTime = new DateTime(
             day.atTime(LocalTime.of(Integer.parseInt(split[0]),Integer.parseInt(split[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
     // Create the DateTime object for the end date and time
-    String[] split1 = course.getEndTime().split(":");
-    System.out.println(split1[0]+" "+ split1[1]);
+
+    
+
     DateTime endDateTime = new DateTime(
-            day.atTime(LocalTime.of(Integer.parseInt(split1[0]),Integer.parseInt(split1[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            day.atTime(LocalTime.of(course.getendTimeFirstHalf(),course.getendTimeSecondHalf())).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
 
         // event.getProperties().add(new

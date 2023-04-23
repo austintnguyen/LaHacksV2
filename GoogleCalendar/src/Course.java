@@ -19,8 +19,19 @@ public class Course {
     public String getstartTime(){
         return startTime;
     }
-    public String getEndTime(){
+    public String getendTime(){
         return endTime;
+    }
+
+    public int getendTimeFirstHalf(){
+        String s = endTime.substring(0,2);
+        int i = Integer.parseInt(s);
+        return i;
+    }
+    public int getendTimeSecondHalf(){
+        String s = endTime.substring(3,5);
+        int i = Integer.parseInt(s);
+        return i;
     }
     public String getLocation(){
         return location;
