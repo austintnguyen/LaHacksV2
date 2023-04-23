@@ -8,6 +8,8 @@ import java.awt.event.*;
 public class InputOutput {
     int[] numClasses;
 
+    int[] startDate = {2023,4,3};
+
     public void intro() {
         System.out.println("Copy and input your schedule into the terminal "
         +"(Paste without formatting and end input with the keyword STOP):");
@@ -52,6 +54,10 @@ public class InputOutput {
 
     public int[] getNumClasses() {
         return numClasses;
+    }
+
+    public int [] getStartDate(){
+        return startDate;
     }
 
     /**
