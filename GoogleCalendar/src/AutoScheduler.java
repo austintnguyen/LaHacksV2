@@ -107,18 +107,20 @@ public class AutoScheduler extends JFrame {
         submitButton.setHorizontalAlignment(SwingConstants.CENTER);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                InputOutput io = new InputOutput();
-                //store startDate
-                io.storeStartDate(startDateI.getText());
+                if (checkConditions()) {
+                    InputOutput io = new InputOutput();
+                    //store startDate
+                    io.storeStartDate(startDateI.getText());
 
-                //store numClasses
-                io.storeNumClasses(daysCombo);
+                    //store numClasses
+                    io.storeNumClasses(daysCombo);
 
-                //create file
-                io.createFile(scheduleI.getText());
+                    //create file
+                    io.createFile(scheduleI.getText());
 
-                //parse data
-                //getNumDays
+                    //parse data
+                    //getNumDays
+                }
             }
         });
         bodyPanel.add(submitButton);
@@ -141,6 +143,17 @@ public class AutoScheduler extends JFrame {
 
         add(superPanel);
         
+    }
+
+    private boolean checkConditions() {
+        if (startDateI.getText().length() != 8) {
+            return false;
+        }
+
+        if (scheduleI.getText().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     // public static void main(String[] args) {
