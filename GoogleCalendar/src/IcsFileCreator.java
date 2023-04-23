@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -5,6 +6,13 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Year;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
@@ -21,72 +29,136 @@ import net.fortuna.ical4j.model.property.RRule;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.validate.ValidationException;
 
-
-
 public class IcsFileCreator {
-    
-    public static void main(String[] args) throws IOException, URISyntaxException, ParseException {
-        // Create a TimeZoneRegistry
-        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
-        TimeZone timezone = registry.getTimeZone("America/Los_Angeles");
-       
-        System.out.println();
-        System.out.println("Timezone "+ "Value: " + timezone.getID());
 
-        // Create a Calendar object and set its properties
-        Calendar calendar = new Calendar();
+    TimeZoneRegistry registry;
+
+    TimeZone timezone;
+
+    Calendar calendar;
+
+    FileOutputStream fout;
+
+    CalendarOutputter outputter;
+
+    ArrayList<Course> courseList;
+
+    Util util;
+
+    public IcsFileCreator(ArrayList<Course> courseList) throws FileNotFoundException {
+        registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+        timezone = registry.getTimeZone("America/Los_Angeles");
+        calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//My Schedule//EN"));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(Method.PUBLISH);
         calendar.getProperties().add(CalScale.GREGORIAN);
-        
-        // Create a VEvent object and set its properties
-       /* 
-        DateTime startDateTime = new DateTime("20230422T090000",timezone);
-        DateTime endDateTime = new DateTime("20230422T095000", timezone);
+        fout = new FileOutputStream("schedule.ics");
+        outputter = new CalendarOutputter();
+        this.courseList = courseList;
+        util = new Util(); // change when austin finishes
 
-
-        VEvent event = new VEvent(startDateTime, endDateTime,"CSE 100");
-       
-
-        event.getProperties().add(new net.fortuna.ical4j.model.property.Description("Discuss project timeline."));
-        event.getProperties().add(new net.fortuna.ical4j.model.property.Location("123 Main St."));
-
-        // Add the event to the calendar
-        calendar.getComponents().add(event);
-
-        // Output the calendar to a file
-        FileOutputStream fout = new FileOutputStream("event.ics");
-        CalendarOutputter outputter = new CalendarOutputter();
-        outputter.output(calendar, fout);
-        */
-        FileOutputStream fout = new FileOutputStream("schedule.ics");
-        CalendarOutputter outputter = new CalendarOutputter();
-        Course course = new Course("CSE 100", "33", "22", "Center Hall", "Le");
-        addToCalendar(calendar, course, timezone, fout, outputter);
     }
 
-    
-    private static void addToCalendar(Calendar calendar, Course course, TimeZone timezone, FileOutputStream fout, CalendarOutputter outputter) throws ParseException, ValidationException, IOException{
-        String rruleValue = "FREQ=WEEKLY;COUNT=10"; 
-        DateTime startDateTime = new DateTime("20230422T110000",timezone);
-        DateTime endDateTime = new DateTime("20230422T115000", timezone);
+    public static void main(String[] args) throws IOException, URISyntaxException, ParseException {
+        // Create a TimeZoneRegistry
+        /*
+         * TimeZoneRegistry registry =
+         * TimeZoneRegistryFactory.getInstance().createRegistry();
+         * TimeZone timezone = registry.getTimeZone("America/Los_Angeles");
+         * 
+         * // Create a Calendar object and set its properties
+         * Calendar calendar = new Calendar();
+         * calendar.getProperties().add(new ProdId("-//My Schedule//EN"));
+         * calendar.getProperties().add(Version.VERSION_2_0);
+         * calendar.getProperties().add(Method.PUBLISH);
+         * calendar.getProperties().add(CalScale.GREGORIAN);
+         * 
+         * FileOutputStream fout = new FileOutputStream("schedule.ics");
+         * CalendarOutputter outputter = new CalendarOutputter();
+         * 
+         * Course course = new Course("CSE 100", "33", "22", "Center Hall", "Le");
+         * addCourse(calendar, course, timezone, fout, outputter);
+         */
+    }
+
+    public void addAllCoursesToCalendar() throws ValidationException, ParseException, IOException {
+        int n = 0;
+        int[] days = util.getDays(null); // change this when austin finishes
+        // Get the start date from which to calculate the first Tuesday
+        LocalDate startDate = LocalDate.of(2023, 5, 1);
+
+        
+
+        while (n < courseList.size())
+            for (int i = 0; i < days.length; i++) {
+                if (days[i] > 0) {
+                    
+                    if(i==0){
+                    // Calculate the first Tuesday after the start date
+                    LocalDate firstMonday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+
+       
+                    addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstMonday);
+                    }
+                    else if(i==1){
+                        LocalDate firstTuesday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                    addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstTuesday);
+
+                    }
+                    else if(i==2){
+                        LocalDate firstWednesday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                    addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstWednesday);
+
+                    }
+                    else if(i==3){
+                        LocalDate firstThursday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                    addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstThursday);
+
+                    }
+                    else{
+                        LocalDate firstFriday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                    addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstFriday);
+
+                    }
+                    n++;
+
+                }
+            }
+
+    }
+
+    private void addCourse(Calendar calendar, Course course, TimeZone timezone, FileOutputStream fout,
+            CalendarOutputter outputter, LocalDate day) throws ParseException, ValidationException, IOException {
+
+        String year = Integer.toString(Year.now().getValue());
+        String rruleValue = "FREQ=WEEKLY;COUNT=10";
+        //DateTime startDateTime = new DateTime(year + "0422T110000", timezone);
+        //DateTime endDateTime = new DateTime(year + "0422T115000", timezone);
+
+        DateTime startDateTime = new DateTime(
+            day.atTime(LocalTime.of(9, 0)).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+
+    // Create the DateTime object for the end date and time
+    DateTime endDateTime = new DateTime(
+            day.atTime(LocalTime.of(10, 0)).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
 
-        event.getProperties().add(new net.fortuna.ical4j.model.property.Description("Discuss project timeline."));
-        event.getProperties().add(new net.fortuna.ical4j.model.property.Location("123 Main St."));
+        // event.getProperties().add(new
+        // net.fortuna.ical4j.model.property.Description("Discuss project timeline."));
+        event.getProperties().add(new net.fortuna.ical4j.model.property.Location(course.getLocation()));
         Recur recur = new Recur(rruleValue);
         RRule rrule = new RRule(recur);
-        event.getProperties().add(rrule); 
-        
+        event.getProperties().add(rrule);
+
         // Add the event to the calendar
         calendar.getComponents().add(event);
         outputter.output(calendar, fout);
 
     }
-
-//implement a function that will add each course to the calendar
-
-
+    // need aiden to remove colons from time
+    // if the start date is the monday of the first week of instruction, then to
+    // grab
+    // the date of the first class, I would need to
 
 }
