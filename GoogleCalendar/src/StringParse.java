@@ -56,9 +56,12 @@ public class StringParse{
 
         int newHour = Integer.parseInt(timeSplit[0]);
 
-        if(timeSplit[1].contains("pm")){
+        if(timeSplit[1].contains("pm")&&!timeSplit[0].contains("12")){
             newHour+=12;
             secondHalf = timeSplit[1].replace("pm","");
+        }else if(timeSplit[1].contains("pm")){
+            secondHalf = timeSplit[1].replace("pm","");
+            
         }else{
             secondHalf = timeSplit[1].replace("am","");
         }
@@ -133,7 +136,7 @@ public class StringParse{
         IcsFileCreator file = new IcsFileCreator(sP.getCourseList(), numClasses);
 
         file.addAllCoursesToCalendar();
-        
+
         System.out.println("Size: " +sP.courseList.size());
         for(int i = 0;i < sP.courseList.size(); i++){
 
