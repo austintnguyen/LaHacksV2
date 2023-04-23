@@ -133,9 +133,9 @@ public class StringParse{
 
         int [] numClasses = {1, 2, 1, 2, 3};
 
-        IcsFileCreator file = new IcsFileCreator(sP.getCourseList(), numClasses);
+       // IcsFileCreator file = new IcsFileCreator(sP.getCourseList(), numClasses);
 
-        file.addAllCoursesToCalendar();
+      //  file.addAllCoursesToCalendar();
 
         System.out.println("Size: " +sP.courseList.size());
         for(int i = 0;i < sP.courseList.size(); i++){

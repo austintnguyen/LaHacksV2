@@ -1,6 +1,12 @@
 import javax.swing.*;
+
+import net.fortuna.ical4j.validate.ValidationException;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class AutoScheduler extends JFrame {
@@ -12,6 +18,8 @@ public class AutoScheduler extends JFrame {
     public String startDate;
     public int[] numClasses;
     private int padding = 10;
+    private InputOutput io;
+    
 
     private void createDate(JPanel p) {
         JPanel datePanel = new JPanel();
@@ -107,7 +115,7 @@ public class AutoScheduler extends JFrame {
         submitButton.setHorizontalAlignment(SwingConstants.CENTER);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                InputOutput io = new InputOutput();
+                
                 //store startDate
                 io.storeStartDate(startDateI.getText());
 
@@ -118,6 +126,29 @@ public class AutoScheduler extends JFrame {
                 io.createFile(scheduleI.getText());
 
                 //parse data
+
+                StringParse sp = new StringParse("input.txt", true);
+
+                sp.parseData();
+
+                IcsFileCreator file;
+                try {
+                    file = new IcsFileCreator(sp.getCourseList(), io);
+                    try {
+                        file.addAllCoursesToCalendar();
+                    } catch (ValidationException | ParseException | IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                } catch (FileNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+        
+                
+        
+                
+                
                 //getNumDays
             }
         });
@@ -127,10 +158,17 @@ public class AutoScheduler extends JFrame {
         p.add(bodyPanel);
     }
 
+    public InputOutput getIO(){
+        return io;
+    }
+
     public AutoScheduler() {
         super("AutoScheduler");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        io = new InputOutput();
+        
 
         JPanel superPanel = new JPanel();
         superPanel.setLayout(new BoxLayout(superPanel, BoxLayout.Y_AXIS));

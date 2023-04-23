@@ -11,6 +11,11 @@ public class InputOutput {
 
     //int[] startDate = {2023,4,3};
 
+    public InputOutput(){
+        numClasses = new int[5];
+        startDate = new int[3];
+    }
+
     public void intro() {
         System.out.println("Copy and input your schedule into the terminal "
         +"(Paste without formatting and end input with the keyword STOP):");
@@ -63,7 +68,6 @@ public class InputOutput {
 
     public int[] storeStartDate(String startDateI) {
         //System.out.println("Start Date: " + startDateI);
-        startDate = new int[3];
         startDate[0] = Integer.parseInt(startDateI.substring(0, 4));
         startDate[1] = Integer.parseInt(startDateI.substring(4, 6));
         startDate[2] = Integer.parseInt(startDateI.substring(6, 8));
