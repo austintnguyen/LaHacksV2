@@ -152,10 +152,10 @@ public class IcsFileCreator {
             day.atTime(LocalTime.of(Integer.parseInt(split[0]),Integer.parseInt(split[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
     // Create the DateTime object for the end date and time
-    split = course.getEndTime().split(":");
-    System.out.println(split[0]+" "+ split[1]);
+    String[] split1 = course.getEndTime().split(":");
+    System.out.println(split1[0]+" "+ split1[1]);
     DateTime endDateTime = new DateTime(
-            day.atTime(LocalTime.of(Integer.parseInt(split[0]),Integer.parseInt(split[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            day.atTime(LocalTime.of(Integer.parseInt(split1[0]),Integer.parseInt(split1[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
 
         // event.getProperties().add(new
