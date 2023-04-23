@@ -11,13 +11,30 @@ public class AutoScheduler extends JFrame {
     private JButton submitButton;
     public String startDate;
     public int[] numClasses;
+    private int padding = 10;
 
     private void createDate(JPanel p) {
         JPanel datePanel = new JPanel();
-        datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.Y_AXIS));
-        startDateI = new JTextArea(10, 10);
+        //datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.Y_AXIS)); //might remove this
+        datePanel.setLayout(new BoxLayout(datePanel, BoxLayout.PAGE_AXIS));
+        datePanel.add(Box.createVerticalGlue());
+
+        //create label
+        JLabel dateLabel = new JLabel("Enter the date on which instruction began in YYYYMMDD format: ");
+        datePanel.add(dateLabel);
+        //datePanel.add(Box.createVerticalGlue());
+        //dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //create start date text box
+        startDateI = new JTextArea(5, 10);
         startDateI.setLineWrap(true);
         startDateI.setWrapStyleWord(true);
+        datePanel.add(startDateI);
+        //datePanel.add(Box.createVerticalGlue());
+
+        //datePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        datePanel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         p.add(datePanel);
     }
 
@@ -62,6 +79,7 @@ public class AutoScheduler extends JFrame {
             classPanel.add(classes.get(i));
         }
 
+        classPanel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
         p.add(classPanel);
     }
     
@@ -72,49 +90,42 @@ public class AutoScheduler extends JFrame {
 
         //create label
         JLabel label = new JLabel("Input Schedule");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         bodyPanel.add(label);
         //bodyPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         //create schedule text box
-        scheduleI = new JTextArea(100, 100);
+        scheduleI = new JTextArea(80, 40);
         scheduleI.setLineWrap(true);
         scheduleI.setWrapStyleWord(true);
         //bodyPanel.setMaximumSize(bodyPanel.getPreferredSize());
         bodyPanel.add(new JScrollPane(scheduleI));
-        bodyPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        //bodyPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         //create button
         submitButton = new JButton("Submit");
+        submitButton.setHorizontalAlignment(SwingConstants.CENTER);
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 InputOutput io = new InputOutput();
-<<<<<<< Updated upstream:GoogleCalendar/src/GUI.java
-                io.storeData(scheduleI, startDateI, daysCombo, startDate, numClasses);
-=======
                 //create file
                 io.createFile(scheduleI.getText());
                 //parse data
+                
                 //getNumDays
                 //io.storeData(scheduleI, startDateI, daysCombo, startDate, numClasses);
->>>>>>> Stashed changes:GoogleCalendar/src/AutoScheduler.java
                 //call methods?
             }
         });
         bodyPanel.add(submitButton);
+        bodyPanel.setBorder(BorderFactory.createEmptyBorder(padding, padding, padding, padding));
+
         p.add(bodyPanel);
     }
 
-<<<<<<< Updated upstream:GoogleCalendar/src/GUI.java
-    private void createOutput(JPanel p) {
-
-    }
-
-    public GUI() {
-=======
     public AutoScheduler() {
->>>>>>> Stashed changes:GoogleCalendar/src/AutoScheduler.java
         super("AutoScheduler");
-        setSize(400, 800);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel superPanel = new JPanel();
@@ -123,36 +134,14 @@ public class AutoScheduler extends JFrame {
         createDate(superPanel);
         createNumClasses(superPanel);
         createBody(superPanel);
-        //createOutput(superPanel);
 
         add(superPanel);
-
-        // output box
-        // o = new JTextArea(20, 40);
-        // o.setLineWrap(true);
-        // o.setWrapStyleWord(true);
-        // o.setEditable(false);
-
-        //JPanel inputPanel = new JPanel(new BorderLayout());
-        //inputPanel.add(new JScrollPane(scheduleI), BorderLayout.CENTER);
-        //inputPanel.add(submitButton, BorderLayout.SOUTH);
-
-        // JPanel outputPanel = new JPanel(new BorderLayout());
-        // outputPanel.add(new JScrollPane(outputTextArea), BorderLayout.CENTER);
-
-       //getContentPane().setLayout(new GridLayout(2, 1));
-        //getContentPane().add(inputPanel);
-        //getContentPane().add(outputPanel);
+        
     }
 
     public static void main(String[] args) {
-<<<<<<< Updated upstream:GoogleCalendar/src/GUI.java
-        GUI GUI = new GUI();
-        GUI.setVisible(true);
-=======
         AutoScheduler AutoScheduler = new AutoScheduler();
         AutoScheduler.pack();
         AutoScheduler.setVisible(true);
->>>>>>> Stashed changes:GoogleCalendar/src/AutoScheduler.java
       }
 }
