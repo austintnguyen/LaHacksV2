@@ -94,9 +94,10 @@ public class IcsFileCreator {
 
         
 
-        while (n < courseList.size())
-            for (int i = 0; i < numClasses.length; i++) {
-                if (days[i] > 0) {
+        while (n < courseList.size()){
+            for (int i = 0; i < days.length; i++) {
+                if (days[i] != 0) {
+                    
                     
                     if(i==0){
                     // Calculate the first Tuesday after the start date
@@ -106,29 +107,34 @@ public class IcsFileCreator {
                     addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstMonday);
                     }
                     else if(i==1){
-                        LocalDate firstTuesday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                        LocalDate firstTuesday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY));
                     addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstTuesday);
 
                     }
                     else if(i==2){
-                        LocalDate firstWednesday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                        LocalDate firstWednesday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.WEDNESDAY));
                     addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstWednesday);
 
                     }
                     else if(i==3){
-                        LocalDate firstThursday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                        LocalDate firstThursday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.THURSDAY));
                     addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstThursday);
 
                     }
                     else{
-                        LocalDate firstFriday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+                        LocalDate firstFriday = startDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.FRIDAY));
                     addCourse(calendar, courseList.get(n), timezone, fout, outputter, firstFriday);
 
                     }
+                    days[i]--;
                     n++;
 
                 }
             }
+        }
+
+        outputter.output(calendar, fout);
+        
 
     }
 
@@ -139,13 +145,17 @@ public class IcsFileCreator {
         String rruleValue = "FREQ=WEEKLY;COUNT=10";
         //DateTime startDateTime = new DateTime(year + "0422T110000", timezone);
         //DateTime endDateTime = new DateTime(year + "0422T115000", timezone);
+        String [] split = course.getstartTime().split(":");
 
+        System.out.println(split[0]+" "+ split[1]);
         DateTime startDateTime = new DateTime(
-            day.atTime(LocalTime.of(9, 0)).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            day.atTime(LocalTime.of(Integer.parseInt(split[0]),Integer.parseInt(split[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
     // Create the DateTime object for the end date and time
+    split = course.getEndTime().split(":");
+    System.out.println(split[0]+" "+ split[1]);
     DateTime endDateTime = new DateTime(
-            day.atTime(LocalTime.of(10, 0)).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            day.atTime(LocalTime.of(Integer.parseInt(split[0]),Integer.parseInt(split[1]))).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         VEvent event = new VEvent(startDateTime, endDateTime, course.getName());
 
         // event.getProperties().add(new
@@ -157,7 +167,7 @@ public class IcsFileCreator {
 
         // Add the event to the calendar
         calendar.getComponents().add(event);
-        outputter.output(calendar, fout);
+        
 
     }
     // need aiden to remove colons from time
